@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Book 1",
+    "author": "Author 1",
+    "isbn": "ISBN 1",
+    "coverImage": "https://dkstatics-public.digikala.com/digikala-products/44fe1e4cbebc8fd7411ad668466d24c8fcb2eee5_1658554311.jpg?x-oss-process=image/resize,m_lfit,h_300,w_300/quality,q_80",
+    "genre": "Genre 1",
+    "pageNumber": 200
+  },
+  {
+    "name": "Book 2",
+    "author": "Author 2",
+    "isbn": "ISBN 2",
+    "coverImage": "https://dkstatics-public.digikala.com/digikala-products/44fe1e4cbebc8fd7411ad668466d24c8fcb2eee5_1658554311.jpg?x-oss-process=image/resize,m_lfit,h_300,w_300/quality,q_80",
+    "genre": "Genre 2",
+    "pageNumber": 300
+  },
+  {
+    "name": "Book 3",
+    "author": "Author 3",
+    "isbn": "ISBN 3",
+    "coverImage": "https://dkstatics-public.digikala.com/digikala-products/44fe1e4cbebc8fd7411ad668466d24c8fcb2eee5_1658554311.jpg?x-oss-process=image/resize,m_lfit,h_300,w_300/quality,q_80",
+    "genre": "Genre 3",
+    "pageNumber": 150
+  }
+]
