@@ -3,7 +3,7 @@
     <v-col cols="12" md="6" lg="3" class="h-auto">
       <v-card class="d-flex flex-column justify-center align-center h-full">
         <v-card-item>
-          <v-card-title class="text-uppercase">add book</v-card-title>
+          <v-card-title class="text-uppercase">add author</v-card-title>
         </v-card-item>
         <v-card-actions class="text-center">
           <v-btn color="primary" variant="elevated" @click="openDialog">
@@ -12,7 +12,7 @@
         </v-card-actions>
       </v-card>
     </v-col>
-    <v-col v-for="(item, index) in books" :key="index" cols="12" md="6" lg="3">
+    <v-col v-for="(item, index) in authors" :key="index" cols="12" md="6" lg="3">
       <v-card :loading="loading" class="mx-auto">
         <template v-slot:loader="{ isActive }">
           <v-progress-linear
@@ -23,18 +23,10 @@
           ></v-progress-linear>
         </template>
 
-        <v-img cover height="250" :src="item.cover_image"></v-img>
+        <v-img cover height="250" :src="item.profile_picture"></v-img>
 
         <v-card-item>
-          <v-card-title
-            ><router-link :to="`/book/${item.name}`">{{
-              item.name
-            }}</router-link></v-card-title
-          >
-
-          <v-card-subtitle>
-            <span class="me-1">author: {{ item.author }}</span>
-          </v-card-subtitle>
+          <v-card-title><router-link :to="`/author/${item.full_name}`">{{ item.full_name }}</router-link></v-card-title>
         </v-card-item>
 
         <v-card-text>
@@ -46,7 +38,7 @@
             density="compact"
             icon="mdi-pen"
             color="secondary"
-            @click="handleOpenEditModal(item, index)"
+            @click="handleOpenEditModal(item)"
           ></v-btn>
           <v-btn
             density="compact"
@@ -57,7 +49,7 @@
         </v-card-actions>
       </v-card>
     </v-col>
-    <v-dialog v-model="showDeleteDialog" width="320">
+    <v-dialog v-model="showDeleteDialog" width="auto">
       <v-card>
         <v-card-text> are you sure want to delete? </v-card-text>
         <v-card-actions>
@@ -70,39 +62,13 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-dialog v-model="showEditDialog" width="320">
+    <v-dialog v-model="showEditDialog" width="auto">
       <v-card>
         <v-card-item>
           <form @submit.prevent="submitEdit" class="p-3">
             <v-text-field
-              v-model="targetForEdit.name"
+              v-model="targetForEdit.full_name"
               label="Name"
-              :rules="requiredRule"
-              class="mb-3"
-            ></v-text-field>
-
-            <v-text-field
-              v-model="targetForEdit.author"
-              label="Author"
-              :rules="requiredRule"
-              class="mb-3"
-            ></v-text-field>
-
-            <v-text-field
-              v-model="targetForEdit.isbn"
-              :rules="requiredRule"
-              label="isbn"
-              class="mb-3"
-            ></v-text-field>
-            <v-text-field
-              v-model="targetForEdit.genre"
-              :rules="requiredRule"
-              label="genre"
-              class="mb-3"
-            ></v-text-field>
-            <v-text-field
-              v-model="targetForEdit.page_number"
-              label="page number"
               :rules="requiredRule"
               class="mb-3"
             ></v-text-field>
@@ -112,7 +78,7 @@
               label="cover image"
               :rules="requiredRule"
               class="mb-3"
-              v-model="targetForEdit.cover_image"
+              v-model="targetForEdit.profile_picture"
             ></v-file-input>
 
             <v-card-actions>
@@ -150,7 +116,7 @@ const requiredRule = [(v) => !!v || "This field is required"];
 const store = useModalStore();
 
 const props = defineProps({
-  books: {
+  authors: {
     type: Array,
     default: () => [],
   },
@@ -158,16 +124,16 @@ const props = defineProps({
 
 const showEditDialog = ref(false);
 const targetForEdit = ref({});
-const editingIndex = ref();
 const showDeleteDialog = ref(false);
 const targetForDelete = ref(null);
 const loading = ref();
+const editingIndex = ref();
 
 const openDialog = () => {
-  store.setModalName("BookForm");
+  store.setModalName("AuthorForm");
 };
 const handleDelete = () => {
-  store.deleteBook(targetForDelete.value);
+  store.deleteAuthor(targetForDelete.value);
   showDeleteDialog.value = false;
 };
 const handleOpenModal = (ind) => {
@@ -176,12 +142,8 @@ const handleOpenModal = (ind) => {
 };
 const handleOpenEditModal = (item, index) => {
   targetForEdit.value = {
-    name: item.name,
-    author: item.author,
-    isbn: item.name,
-    genre: item.name,
-    page_number: item.page_number,
-    cover_image: null,
+    full_name: item.full_name,
+    profile_picture: null,
   };
   showEditDialog.value = true;
   editingIndex.value = index

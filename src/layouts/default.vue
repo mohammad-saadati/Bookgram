@@ -8,11 +8,13 @@
       <router-view></router-view>
     </main>
 
+    <Dialogs />
     <Footer />
   </div>
 </template>
 
 <script setup>
+import Dialogs from "../components/Dialogs/index.vue"
 import Header from "../components/Header/index.vue"
 import Footer from "../components/Footer/index.vue"
 </script>
